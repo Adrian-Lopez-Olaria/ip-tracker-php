@@ -1,5 +1,16 @@
 # 🌐 IP Tracker con Redirección Invisible
 
+## 📌 Descripción del Proyecto
+
+Este proyecto implementa un sistema de seguimiento de IPs avanzado que registra información detallada de los visitantes y los redirige de manera transparente a Google. Está específicamente diseñado para:
+
+- 🔍 **Pruebas de seguridad autorizadas** y ejercicios de concienciación
+- 📊 **Análisis de tráfico** en entornos controlados
+- 🎓 **Demostraciones educativas** sobre técnicas de tracking web
+- ⚠️ **Auditorías de seguridad** con consentimiento explícito
+
+**Importante**: Este sistema debe utilizarse ÚNICAMENTE en entornos controlados y con autorización explícita. El uso no autorizado puede violar leyes de privacidad.
+
 ## 📖 Índice
 1. [Descripción del Proyecto](#-descripción-del-proyecto)
 2. [Cómo Funciona el Sistema](#-cómo-funciona-el-sistema)
@@ -11,17 +22,6 @@
 8. [Consideraciones Legales y Éticas](#-consideraciones-legales-y-éticas)
 9. [Solución de Problemas](#-solución-de-problemas)
 10. [Estructura del Proyecto](#-estructura-del-proyecto)
-
-## 📌 Descripción del Proyecto
-
-Este proyecto implementa un sistema de seguimiento de IPs avanzado que registra información detallada de los visitantes y los redirige de manera transparente a Google. Está específicamente diseñado para:
-
-- 🔍 **Pruebas de seguridad autorizadas** y ejercicios de concienciación
-- 📊 **Análisis de tráfico** en entornos controlados
-- 🎓 **Demostraciones educativas** sobre técnicas de tracking web
-- ⚠️ **Auditorías de seguridad** con consentimiento explícito
-
-**Importante**: Este sistema debe utilizarse ÚNICAMENTE en entornos controlados y con autorización explícita. El uso no autorizado puede violar leyes de privacidad.
 
 ## 🔧 Cómo Funciona el Sistema
 
