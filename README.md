@@ -1,15 +1,7 @@
 # 🌐 IP Tracker con Redirección Invisible
 
-## 📌 Descripción del Proyecto
-
-Este proyecto implementa un sistema de seguimiento de IPs avanzado que registra información detallada de los visitantes y los redirige de manera transparente a Google. Está específicamente diseñado para:
-
-- 🔍 **Pruebas de seguridad autorizadas** y ejercicios de concienciación
-- 📊 **Análisis de tráfico** en entornos controlados
-- 🎓 **Demostraciones educativas** sobre técnicas de tracking web
-- ⚠️ **Auditorías de seguridad** con consentimiento explícito
-
-**Importante**: Este sistema debe utilizarse ÚNICAMENTE en entornos controlados y con autorización explícita. El uso no autorizado puede violar leyes de privacidad.
+![Análisis de VirusTotal](media/analisis-con-virustotal.png)
+*Resultado del análisis en VirusTotal - Solo 2/98 motores detectaron como falso positivo*
 
 ## 📖 Índice
 1. [Descripción del Proyecto](#-descripción-del-proyecto)
@@ -23,6 +15,17 @@ Este proyecto implementa un sistema de seguimiento de IPs avanzado que registra 
 9. [Solución de Problemas](#-solución-de-problemas)
 10. [Estructura del Proyecto](#-estructura-del-proyecto)
 
+## 📌 Descripción del Proyecto
+
+Este proyecto implementa un sistema de seguimiento de IPs avanzado que registra información detallada de los visitantes y los redirige de manera transparente a Google. Está específicamente diseñado para:
+
+- 🔍 **Pruebas de seguridad autorizadas** y ejercicios de concienciación
+- 📊 **Análisis de tráfico** en entornos controlados
+- 🎓 **Demostraciones educativas** sobre técnicas de tracking web
+- ⚠️ **Auditorías de seguridad** con consentimiento explícito
+
+**Importante**: Este sistema debe utilizarse ÚNICAMENTE en entornos controlados y con autorización explícita. El uso no autorizado puede violar leyes de privacidad.
+
 ## 🔧 Cómo Funciona el Sistema
 
 El sistema opera mediante un flujo cuidadosamente diseñado:
@@ -35,6 +38,9 @@ El sistema opera mediante un flujo cuidadosamente diseñado:
 ```
 Usuario → Enlace Ngrok → Servidor Local → Registro de Datos → Redirección a Google
 ```
+
+![Panel de Control de Ngrok](media/ngrock-exponiendolo-al-mundo.png)
+*Panel de control de Ngrok mostrando la sesión activa y el tunneling*
 
 ## ⚙️ Requisitos del Sistema
 
@@ -71,6 +77,9 @@ El script `preparacion.sh` automatiza completamente la configuración:
 5. **Crea el archivo de logs** `ips.txt` con permisos correctos
 6. **Reinicia Apache** para aplicar los cambios
 
+![Configuración de Permisos](media/creación-y-permisos-de-index-y-txt.png)
+*Configuración de permisos para los archivos del proyecto*
+
 ### Configuración de Ngrok
 
 ```bash
@@ -81,7 +90,12 @@ sudo mv ngrok /usr/local/bin/
 
 # 2. Autenticarse en Ngrok (necesaria cuenta gratuita)
 ngrok config add-authtoken TU_TOKEN_AQUI
+```
 
+![Autenticación de Ngrok](media/ngrok-token.png)
+*Autenticación exitosa en Ngrok con token válido*
+
+```bash
 # 3. Exponer el servidor local
 ngrok http 80
 ```
@@ -148,6 +162,9 @@ tail -f /var/www/html/ips.txt
 [2025-09-17 11:37:20] IP: 149.102.244.108 Country: Poland Region: Mazovia City: Warsaw ISP: Datacamp Limited LatLon: 52.2299,21.0093 Method: GET UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0 Accept-Lang: en-US,en;q=0.9 Referer: https://example.com URI: /
 ```
 
+![Captura de Víctima](media/victima-capturada.png)
+*Ejemplo de datos capturados mostrando información detallada del visitante*
+
 ## 🛡️ Medidas de Seguridad y Anonimato
 
 ### Para el Operador:
@@ -161,6 +178,9 @@ tail -f /var/www/html/ips.txt
 - **Redirección Rápida**: Minimiza el tiempo de exposición
 - **Sin Almacenamiento Persistente**: No se instala nada en sus dispositivos
 - **Solo Datos Públicos**: Se captura únicamente información disponible públicamente
+
+![Advertencia de Ngrok](media/aviso-de-ngrok-gratuito.png)
+*Página de advertencia que ven los usuarios al acceder al enlace de Ngrok*
 
 ## ⚖️ Consideraciones Legales y Éticas
 
@@ -230,6 +250,9 @@ ip-tracker/
     ├── victima-capturada.png
     └── aviso-de-ngrok-gratuito.png
 ```
+
+![Registro de Ngrok](media/registro-de-ngrok.png)
+*Página de registro de Ngrok para crear una cuenta gratuita*
 
 ## 📞 Soporte Técnico
 
