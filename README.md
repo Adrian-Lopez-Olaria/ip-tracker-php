@@ -40,7 +40,7 @@ El script realizó las siguientes acciones:
 - ✅ Configuración de permisos adecuados
 - ✅ Creación del archivo de logs `ips.txt`
 
-![Configuración de Permisos](creación-y-permisos-de-index-y-txt.png)
+![Configuración de Permisos](media/creación-y-permisos-de-index-y-txt.png)
 *Configuración de permisos para los archivos del sistema*
 
 ### Autenticación con Ngrok
@@ -49,7 +49,7 @@ El script realizó las siguientes acciones:
 ngrok config add-authtoken [TOKEN]
 ```
 
-![Autenticación Ngrok](ngrok-token.png)
+![Autenticación Ngrok](media/ngrok-token.png)
 *Autenticación exitosa en el servicio Ngrok*
 
 ## 🌐 Exposición con Ngrok
@@ -62,7 +62,7 @@ Se estableció un tunnel seguro mediante Ngrok para exponer el servidor local:
 ngrok http 80
 ```
 
-![Panel de Control Ngrok](ngrock-exponiendolo-al-mundo.png)
+![Panel de Control Ngrok](media/ngrock-exponiendolo-al-mundo.png)
 *Panel de control de Ngrok mostrando el tunnel activo y las estadísticas de conexión*
 
 ### Enlace Generado
@@ -74,14 +74,14 @@ https://[SUBDOMINIO].ngrok-free.app
 ### Advertencia de Seguridad
 Los usuarios que accedieron al enlace vieron una página de advertencia:
 
-![Advertencia Ngrok](aviso-de-ngrok-gratuito.png)
+![Advertencia Ngrok](media/aviso-de-ngrok-gratuito.png)
 *Página de advertencia que muestra Ngrok para enlaces gratuitos*
 
 ## 📊 Análisis de VirusTotal
 
 El enlace generado fue analizado mediante VirusTotal para evaluar su detección:
 
-![Análisis VirusTotal](analisis-con-virustotal.png)
+![Análisis VirusTotal](media/analisis-con-virustotal.png)
 *Resultado del análisis en VirusTotal - Solo 2/98 motores detectaron como potencialmente malicioso*
 
 **Resultados del análisis:**
@@ -94,13 +94,13 @@ El enlace generado fue analizado mediante VirusTotal para evaluar su detección:
 ### Acceso de la Víctima
 Cuando un usuario accedió al enlace, el sistema capturó automáticamente:
 
-![Acceso de Víctima](victima-accediendo-al-enlace.png)
+![Acceso de Víctima](media/victima-accediendo-al-enlace.png)
 *Usuario accediendo al enlace de Ngrok*
 
 ### Información Capturada
 El sistema registró información detallada del visitante:
 
-![Datos Capturados](victima-capturada.png)
+![Datos Capturados](media/victima-capturada.png)
 *Información detallada capturada del usuario que accedió al enlace*
 
 **Datos obtenidos:**
