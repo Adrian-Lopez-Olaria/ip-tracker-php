@@ -187,9 +187,25 @@ Analicé el enlace con VirusTotal para evaluar su detección:
 - ⚠️ Clasificado como **falso positivo** en su mayoría
 
 ### Riesgos Identificados
-1. **Ingeniería Social**: Enlaces que parecen legítimos
-2. **Evasión de Detección**: Baja tasa de detección en antivirus
-3. **Captura de Información**: Obtención de datos sensibles sin consentimiento
+
+1. **Ingeniería Social**: Enlaces que parecen legítimos y generan falsa confianza en las víctimas.
+
+2. **Evasión de Detección**: Baja tasa de detección en antivirus (solo 2/98 motores detectaron la amenaza), lo que permite que estos ataques pasen desapercibidos.
+
+3. **Captura de Información**: Obtención de datos sensibles sin consentimiento, incluyendo:
+   - 🌍 **Geolocalización precisa** (país, ciudad, coordenadas)
+   - 📡 **Dirección IP real** y proveedor de internet (ISP)
+   - 🖥️ **Huella digital del navegador** y sistema operativo
+   - ⏰ **Hábitos de navegación** y horarios de acceso
+
+**¿Qué podría hacer un atacante con esta información?**
+- 🔍 **Perfilamiento de víctimas**: Crear patrones de comportamiento
+- 🎯 **Ataques dirigidos**: Personalizar phishing según ubicación e ISP
+- 🌐 **Suplantación avanzada**: Bypass de verificaciones de seguridad basadas en ubicación
+- 📊 **Análisis de infraestructura**: Identificar redes corporativas y rangos IP
+- ⚠️ **Escalada de ataques**: Usar la información para ataques más avanzados
+
+La combinación de estos datos permite crear campañas de ingeniería social altamente personalizadas y difíciles de detectar.
 
 ## 🛡️ Recomendaciones de Protección
 
