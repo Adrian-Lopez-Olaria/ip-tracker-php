@@ -146,7 +146,8 @@ Esta pantalla de advertencia es característica del plan gratuito de Ngrok. En u
 Estas técnicas harían que el enlace resultara prácticamente indistinguible de una página web real, eliminando las señales de alerta que muestra la versión gratuita y aumentando drásticamente la efectividad del ataque de ingeniería social.
 
 ### Acceso de la Víctima
-Cuando alguien accede al enlace:
+
+Cuando alguien accede al enlace, el sistema captura instantáneamente todos sus datos antes de que se complete la redirección. La víctima cree que está accediendo a una página legítima cuando en realidad ya ha sido monitorizada sin dejar rastro visible ni levantar sospechas.
 
 ![Acceso al Enlace](media/victima-accediendo-al-enlace.png)
 *Usuario accediendo mediante el enlace de Ngrok*
