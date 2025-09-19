@@ -2,14 +2,16 @@
 
 ## 📖 Introducción
 
+**En este taller aprenderemos a configurar un sistema de tracking de IPs** que demuestra cómo se puede recopilar información de usuarios a través de un enlace aparentemente inofensivo. El laboratorio incluye la instalación de un servidor web local, desarrollo de un script PHP personalizado para capturar datos, exposición controlada a internet mediante tunneling con Ngrok, análisis de la información obtenida y evaluación de medidas de protección contra este tipo de técnicas.
+
 **Este laboratorio se ha realizado en un entorno completamente controlado y aislado** con fines exclusivamente educativos. Todas las pruebas se ejecutaron mediante:
 
 - 🔒 **VPN activada** para proteger mi identidad y ubicación real
-- 💻 **Máquinas virtuales** con sistemas operativos Kali Linux y Ubuntu
+- 💻 **Máquinas virtuales** con sistemas operativos Kali Linux y Ubuntu  
 - 🛡️ **Redes aisladas** sin conexión a mis sistemas personales
 - 📋 **Protocolos de seguridad** para evitar cualquier fuga de datos
 
-El objetivo es demostrar técnicas de recolección de información y concienciar sobre los riesgos de hacer clic en enlaces no verificados, **nunca para actividades maliciosas**.
+El objetivo es concienciar sobre los riesgos de hacer clic en enlaces no verificados y demostrar la importancia de implementar medidas de seguridad adecuadas, **nunca para actividades maliciosas**.
 
 ## 📑 Índice del Laboratorio
 
@@ -50,7 +52,7 @@ sudo ./preparacion.sh
 ```
 
 ![Configuración de Permisos](media/creación-y-permisos-de-index-y-txt.png)
-*Configuración de permisos para los archivos del sistema*
+*Configuración de permisos para los archivos del sistema - Como se observa en la imagen, es necesario crear el archivo index.php en el directorio /var/www/html/ y copiar el contenido del script PHP desarrollado para este laboratorio. Además, se deben configurar los permisos adecuados (chown www-data:www-data y chmod 644) para garantizar el correcto funcionamiento del sistema de tracking.*
 
 ## 🐘 Explicación del Código PHP
 
