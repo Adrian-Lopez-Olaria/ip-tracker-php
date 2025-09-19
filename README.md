@@ -1,267 +1,179 @@
-# 🌐 IP Tracker con Redirección Invisible
+# 🔍 IP Tracker con Redirección Invisible - Análisis de Seguridad
 
-![Análisis de VirusTotal](media/analisis-con-virustotal.png)
-*Resultado del análisis en VirusTotal - Solo 2/98 motores detectaron como falso positivo*
+## 📖 Introducción
 
-## 📖 Índice
-1. [Descripción del Proyecto](#-descripción-del-proyecto)
-2. [Cómo Funciona el Sistema](#-cómo-funciona-el-sistema)
-3. [Requisitos del Sistema](#-requisitos-del-sistema)
-4. [Instalación y Configuración](#-instalación-y-configuración)
-5. [Explicación Técnica del Código PHP](#-explicación-técnica-del-código-php)
-6. [Uso del Sistema](#-uso-del-sistema)
-7. [Medidas de Seguridad y Anonimato](#-medidas-de-seguridad-y-anonimato)
-8. [Consideraciones Legales y Éticas](#-consideraciones-legales-y-éticas)
-9. [Solución de Problemas](#-solución-de-problemas)
-10. [Estructura del Proyecto](#-estructura-del-proyecto)
+En este repositorio se documenta un **ejercicio de análisis de seguridad** que implementa un sistema de tracking de IPs mediante una técnica de **ingeniería social controlada**. El sistema fue desarrollado para demostrar cómo un atacante podría capturar información sensible de usuarios mediante un enlace aparentemente inocente.
 
-## 📌 Descripción del Proyecto
+El objetivo de este proyecto es **concienciar sobre los riesgos de seguridad** asociados con hacer clic en enlaces no verificados y demostrar la importancia de implementar medidas de protección adecuadas tanto a nivel personal como empresarial.
 
-Este proyecto implementa un sistema de seguimiento de IPs avanzado que registra información detallada de los visitantes y los redirige de manera transparente a Google. Está específicamente diseñado para:
+## 🎯 Objetivos del Análisis
 
-- 🔍 **Pruebas de seguridad autorizadas** y ejercicios de concienciación
-- 📊 **Análisis de tráfico** en entornos controlados
-- 🎓 **Demostraciones educativas** sobre técnicas de tracking web
-- ⚠️ **Auditorías de seguridad** con consentimiento explícito
+1. **Demostrar** cómo se puede obtener información de usuarios mediante técnicas de phishing
+2. **Analizar** la efectividad de herramientas de tunneling como Ngrok para evadir medidas de seguridad
+3. **Concienciar** sobre la importancia de verificar enlaces antes de hacer clic
+4. **Proporcionar** recomendaciones de seguridad para prevenir este tipo de ataques
 
-**Importante**: Este sistema debe utilizarse ÚNICAMENTE en entornos controlados y con autorización explícita. El uso no autorizado puede violar leyes de privacidad.
+## 📑 Índice
 
-## 🔧 Cómo Funciona el Sistema
+1. [🔧 Configuración del Entorno](#configuración-del-entorno)
+2. [🌐 Exposición con Ngrok](#exposición-con-ngrok)
+3. [📊 Análisis de VirusTotal](#análisis-de-virustotal)
+4. [📝 Captura de Datos](#captura-de-datos)
+5. [⚠️ Riesgos Identificados](#riesgos-identificados)
+6. [🛡️ Recomendaciones de Seguridad](#recomendaciones-de-seguridad)
+7. [🎯 Conclusión](#conclusión)
 
-El sistema opera mediante un flujo cuidadosamente diseñado:
+## 🔧 Configuración del Entorno
 
-1. **Generación de Enlace**: Se crea un enlace aparentemente inocente usando Ngrok
-2. **Captura de Datos**: Cuando un usuario accede, se registra su información de conexión
-3. **Redirección Invisible**: El usuario es redirigido silenciosamente a Google
-4. **Protección del Operador**: Todas las operaciones se realizan través de VPN
-
-```
-Usuario → Enlace Ngrok → Servidor Local → Registro de Datos → Redirección a Google
-```
-
-![Panel de Control de Ngrok](media/ngrock-exponiendolo-al-mundo.png)
-*Panel de control de Ngrok mostrando la sesión activa y el tunneling*
-
-## ⚙️ Requisitos del Sistema
-
-- **Sistema Operativo**: Linux (Kali/Ubuntu/Debian recomendado)
-- **Servidor Web**: Apache con PHP 7.4+
-- **Memoria**: Mínimo 512MB RAM
-- **Espacio**: 100MB de espacio libre
-- **Conexión**: Internet para geolocalización y Ngrok
-
-## 🚀 Instalación y Configuración
-
-### Preparación del Entorno
+### Script de Preparación
+Se utilizó el script [`preparacion.sh`](preparacion.sh) para configurar un entorno controlado:
 
 ```bash
-# 1. Clonar o descargar los archivos del proyecto
-git clone [url-del-repositorio]
-cd ip-tracker
-
-# 2. Hacer ejecutable el script de preparación
+# Ejecución del script de preparación
 chmod +x preparacion.sh
-
-# 3. Ejecutar el script (requiere permisos de administrador)
 sudo ./preparacion.sh
 ```
 
-### Qué hace el script de preparación:
+El script realizó las siguientes acciones:
+- ✅ Limpieza del directorio `/var/www/html`
+- ✅ Instalación de Apache y PHP
+- ✅ Configuración de permisos adecuados
+- ✅ Creación del archivo de logs `ips.txt`
 
-El script `preparacion.sh` automatiza completamente la configuración:
+![Configuración de Permisos](creación-y-permisos-de-index-y-txt.png)
+*Configuración de permisos para los archivos del sistema*
 
-1. **Crea backup** del directorio web actual
-2. **Limpia** el directorio `/var/www/html` para un entorno fresco
-3. **Instala Apache y PHP** si no están presentes
-4. **Configura permisos** adecuados para los archivos
-5. **Crea el archivo de logs** `ips.txt` con permisos correctos
-6. **Reinicia Apache** para aplicar los cambios
-
-![Configuración de Permisos](media/creación-y-permisos-de-index-y-txt.png)
-*Configuración de permisos para los archivos del proyecto*
-
-### Configuración de Ngrok
-
+### Autenticación con Ngrok
 ```bash
-# 1. Descargar e instalar Ngrok
-wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
-tar -xzf ngrok-v3-stable-linux-amd64.tgz
-sudo mv ngrok /usr/local/bin/
-
-# 2. Autenticarse en Ngrok (necesaria cuenta gratuita)
-ngrok config add-authtoken TU_TOKEN_AQUI
+# Configuración del token de autenticación
+ngrok config add-authtoken [TOKEN]
 ```
 
-![Autenticación de Ngrok](media/ngrok-token.png)
-*Autenticación exitosa en Ngrok con token válido*
+![Autenticación Ngrok](ngrok-token.png)
+*Autenticación exitosa en el servicio Ngrok*
+
+## 🌐 Exposición con Ngrok
+
+### Tunnel Configurado
+Se estableció un tunnel seguro mediante Ngrok para exponer el servidor local:
 
 ```bash
-# 3. Exponer el servidor local
+# Inicio del tunnel en el puerto 80
 ngrok http 80
 ```
 
-## 💻 Explicación Técnica del Código PHP
+![Panel de Control Ngrok](ngrock-exponiendolo-al-mundo.png)
+*Panel de control de Ngrok mostrando el tunnel activo y las estadísticas de conexión*
 
-El archivo `index.php` es el núcleo del sistema y realiza las siguientes funciones:
-
-### 1. Configuración Inicial
-```php
-// Zona horaria y IPs a ignorar (para no registrar tus propias pruebas)
-date_default_timezone_set('UTC');
-$IGNORE_IP = ''; // Ej: "203.0.113.5" para ignorar una IP específica
+### Enlace Generado
+Ngrok proporcionó un enlace único:
+```
+https://[SUBDOMINIO].ngrok-free.app
 ```
 
-### 2. Sistema de Logs Inteligente
-El código intenta múltiples ubicaciones para guardar logs, en orden de preferencia:
-- Directorio fuera del web root (más seguro)
-- Directorio dentro del web root (accesible)
-- Directorio temporal del sistema (último recurso)
+### Advertencia de Seguridad
+Los usuarios que accedieron al enlace vieron una página de advertencia:
 
-### 3. Obtención de la IP del Cliente
-Función avanzada que verifica múltiples cabeceras HTTP para determinar la IP real, incluso detrás de proxies o Cloudflare.
+![Advertencia Ngrok](aviso-de-ngrok-gratuito.png)
+*Página de advertencia que muestra Ngrok para enlaces gratuitos*
 
-### 4. Detección de IPs Privadas
-Sistema que identifica y filtra direcciones IP de redes locales:
-- Rangos IPv4 privados (10.x.x.x, 172.16.x.x, 192.168.x.x)
-- Direcciones IPv6 locales
-- Direcciones de loopback
+## 📊 Análisis de VirusTotal
 
-### 5. Geolocalización Avanzada
-Integración con ip-api.com para obtener información detallada:
-- País, región y ciudad
-- Coordenadas geográficas (latitud/longitud)
-- Proveedor de servicio de Internet (ISP)
+El enlace generado fue analizado mediante VirusTotal para evaluar su detección:
 
-### 6. Registro de Datos Completos
-Cada entrada del log incluye:
-```php
-[2025-09-17 11:37:20] IP: 149.102.244.108 Country: Poland Region: Mazovia City: Warsaw ISP: Datacamp Limited LatLon: 52.2299,21.0093 Method: GET UA: Mozilla/5.0... Accept-Lang: en-US Referer: https://example.com URI: /
-```
+![Análisis VirusTotal](analisis-con-virustotal.png)
+*Resultado del análisis en VirusTotal - Solo 2/98 motores detectaron como potencialmente malicioso*
 
-### 7. Redirección Transparente
-Después de registrar todos los datos, el usuario es redirigido inmediatamente a Google sin indicios visibles.
+**Resultados del análisis:**
+- 🔍 **2/98** motores de antivirus detectaron el enlace como malicioso
+- ✅ **96/98** no mostraron detecciones
+- ⚠️ Las detecciones fueron clasificadas como **falsos positivos**
 
-## 📊 Uso del Sistema
+## 📝 Captura de Datos
 
-### Generación del Enlace de Tracking
-Después de ejecutar Ngrok, obtendrás un enlace como:
-```
-https://abcd1234.ngrok-free.app
-```
+### Acceso de la Víctima
+Cuando un usuario accedió al enlace, el sistema capturó automáticamente:
 
-Este enlace puede ser compartido con los objetivos de la prueba.
+![Acceso de Víctima](victima-accediendo-al-enlace.png)
+*Usuario accediendo al enlace de Ngrok*
 
-### Monitoreo en Tiempo Real
-Para ver los accesos en tiempo real:
-```bash
-tail -f /var/www/html/ips.txt
-```
+### Información Capturada
+El sistema registró información detallada del visitante:
 
-### Ejemplo de Salida del Log
-```
-[2025-09-17 11:37:20] IP: 149.102.244.108 Country: Poland Region: Mazovia City: Warsaw ISP: Datacamp Limited LatLon: 52.2299,21.0093 Method: GET UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0 Accept-Lang: en-US,en;q=0.9 Referer: https://example.com URI: /
-```
+![Datos Capturados](victima-capturada.png)
+*Información detallada capturada del usuario que accedió al enlace*
 
-![Captura de Víctima](media/victima-capturada.png)
-*Ejemplo de datos capturados mostrando información detallada del visitante*
+**Datos obtenidos:**
+- 🌍 **Ubicación geográfica** (país, región, ciudad)
+- 📡 **Dirección IP** y proveedor de internet (ISP)
+- 🖥️ **Navegador y sistema operativo** utilizado
+- 🌐 **Idioma preferido** y página de referencia
+- ⏰ **Fecha y hora exacta** del acceso
 
-## 🛡️ Medidas de Seguridad y Anonimato
+## ⚠️ Riesgos Identificados
 
-### Para el Operador:
-- **VPN Obligatoria**: Todas las conexiones deben realizarse through VPN
-- **Cuenta Ngrok Desechable**: Usar email temporal para registro
-- **Eliminación de Logs**: Borrar periódicamente los datos capturados
-- **Servidor Aislado**: Usar máquina virtual o contenedor dedicado
+### 1. Ingeniería Social Efectiva
+- Los enlaces de Ngrok parecen **legítimos** a simple vista
+- La página de advertencia es **fácilmente omitible** por usuarios no técnicos
+- La redirección inmediata a Google **reduce las sospechas**
 
-### Para los Sujetos de Prueba:
-- **Advertencia de Ngrok**: Los usuarios verán una página de advertencia inicial
-- **Redirección Rápida**: Minimiza el tiempo de exposición
-- **Sin Almacenamiento Persistente**: No se instala nada en sus dispositivos
-- **Solo Datos Públicos**: Se captura únicamente información disponible públicamente
+### 2. Evasión de Detección
+- Solo **2%** de los motores antivirus detectaron la amenaza
+- Las herramientas de tunneling **eluden muchas medidas** de seguridad perimetral
+- El uso de HTTPS **enmascara** el tráfico malicioso
 
-![Advertencia de Ngrok](media/aviso-de-ngrok-gratuito.png)
-*Página de advertencia que ven los usuarios al acceder al enlace de Ngrok*
+### 3. Captura de Información Sensible
+- Obtención de **datos de geolocalización** precisos
+- Identificación del **proveedor de internet**
+- Captura de **huella digital** del navegador
 
-## ⚖️ Consideraciones Legales y Éticas
+## 🛡️ Recomendaciones de Seguridad
 
-### Uso Aceptable:
-- ✅ Pruebas de seguridad con autorización explícita por escrito
-- ✅ Ejercicios educativos en entornos controlados
-- ✅ Auditorías internas con consentimiento informado
-- ✅ Investigación académica con aprobación ética
+### Para Usuarios Finales
+1. **🔍 Verificar Enlaces**
+   - Examinar URLs antes de hacer clic
+   - Utilizar herramientas de análisis de enlaces
 
-### Uso Inaceptable:
-- ❌ Tracking sin consentimiento
-- ❌ Vigilancia no autorizada
-- ❌ Actividades maliciosas o fraudulentas
-- ❌ Violación de privacidad
+2. **🛡️ Navegación Segura**
+   - Utilizar extensiones de seguridad en el navegador
+   - Mantener el navegador actualizado
 
-### Legislación Applicable:
-- GDPR (Protección de datos en Europa)
-- CCPA (California Consumer Privacy Act)
-- Leyes locales de protección de datos y privacidad
+3. **🌐 Concienciación**
+   - Educarse sobre técnicas de phishing
+   - Desconfiar de enlaces acortados o desconocidos
 
-## 🔧 Solución de Problemas
+### Para Empresas
+1. **🔒 Seguridad Perimetral**
+   - Implementar filtrado web avanzado
+   - Bloquear servicios de tunneling conocidos
 
-### Error de Permisos
-```bash
-sudo chown -R www-data:www-data /var/www/html
-sudo chmod -R 755 /var/www/html
-```
+2. **📊 Monitoreo**
+   - Implementar soluciones de detección de phishing
+   - Monitorear tráfico saliente inusual
 
-### Ngrok no se conecta
-```bash
-# Verificar autenticación
-ngrok config check
+3. **🎓 Capacitación**
+   - Entrenar empleados en识别 phishing
+   - Realizar simulacros de ataques controlados
 
-# Verificar que no hay conflictos de puertos
-sudo netstat -tulpn | grep :80
-```
+### Para Desarrolladores
+1. **⚙️ Configuración Segura**
+   - Deshabilitar información sensible en headers
+   - Implementar políticas de seguridad de contenido
 
-### No se generan logs
-```bash
-# Verificar permisos de escritura
-sudo touch /var/www/html/ips.txt
-sudo chmod 664 /var/www/html/ips.txt
+2. **🔍 Auditoría Regular**
+   - Realizar tests de penetración periódicos
+   - Monitorear logs de acceso en busca de anomalías
 
-# Verificar que PHP puede escribir
-sudo -u www-data touch /var/www/html/test.txt
-```
+## 🎯 Conclusión
 
-### Geolocalización no funciona
-- Verificar conexión a internet del servidor
-- Comprobar que ip-api.com está accesible
-- Revisar configuración de firewall
+Este ejercicio demostró la **efectividad de las técnicas de ingeniería social** combinadas con herramientas de tunneling modernas. La facilidad con que se puede capturar información sensible destaca la **importancia crítica de la educación en seguridad** y la implementación de **múltiples capas de defensa**.
 
-## 📁 Estructura del Proyecto
-
-```
-ip-tracker/
-├── 📄 index.php              # Script principal de tracking
-├── ⚙️ preparacion.sh         # Configuración automática del entorno
-├── 📊 ips.txt               # Logs generados (no incluido en repo)
-└── 📷 capturas/            # Evidencia de funcionamiento
-    ├── ngrok-token.png
-    ├── analisis-con-virustotal.png
-    ├── ngrock-exponiendolo-al-mundo.png
-    ├── creacion-y-permisos-de-index-y-txt.png
-    ├── victima-accediendo-al-enlace.png
-    ├── registro-de-ngrok.png
-    ├── victima-capturada.png
-    └── aviso-de-ngrok-gratuito.png
-```
-
-![Registro de Ngrok](media/registro-de-ngrok.png)
-*Página de registro de Ngrok para crear una cuenta gratuita*
-
-## 📞 Soporte Técnico
-
-Para problemas técnicos:
-1. Verificar que todos los requisitos del sistema están cumplidos
-2. Revisar los logs de Apache: `/var/log/apache2/error.log`
-3. Comprobar que PHP está ejecutándose correctamente
-4. Asegurarse de que Ngrok está correctamente autenticado
+La **baja tasa de detección** en herramientas antivirus tradicionales subraya la necesidad de adoptar **enfoques de seguridad más proactivos** y basados en comportamiento.
 
 ---
 
-**⚠️ DECLARACIÓN FINAL DE RESPONSABILIDAD**: Este software se proporciona únicamente con fines educativos y de investigación security. El usuario es el único responsable de cumplir con todas las leyes aplicables y obtener el consentimiento necesario antes de su uso. Los desarrolladores no se hacen responsables del uso indebido de esta herramienta.
+**⚖️ Nota Legal**: Este análisis se realizó en un **entorno controlado** con fines educativos. El **testing de seguridad** debe realizarse únicamente en sistemas con **autorización explícita** del propietario.
+
+**🔔 Disclaimer**: Este documento es solo con fines educativos. No me hago responsable del mal uso de esta información.
+
+**📧 Contacto**: Para reportar vulnerabilidades o solicitar más información sobre este análisis.
