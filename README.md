@@ -131,9 +131,19 @@ https://abcd1234.ngrok-free.app
 Al ser plan gratuito, los usuarios ven una advertencia:
 
 ![Advertencia Ngrok](media/aviso-de-ngrok-gratuito.png)
+
 *Página de advertencia que muestra Ngrok para cuentas gratuitas*
 
 El usuario debe hacer clic en "Visit Site" para continuar.
+
+**Nota importante sobre la evasión de advertencias:**
+Esta pantalla de advertencia es característica del plan gratuito de Ngrok. En un escenario real con fines maliciosos, un atacante podría:
+- Utilizar una **cuenta de pago** de Ngrok para eliminar completamente esta advertencia
+- **Registrar un dominio personalizado** (ej: "soporte-tuempresa.com") que parezca totalmente legítimo
+- Configurar **certificados SSL propios** para aumentar la apariencia de legitimidad
+- Utilizar **servicios de hosting convencionales** en lugar de tunneling
+
+Estas técnicas harían que el enlace resultara prácticamente indistinguible de una página web real, eliminando las señales de alerta que muestra la versión gratuita y aumentando drásticamente la efectividad del ataque de ingeniería social.
 
 ### Acceso de la Víctima
 Cuando alguien accede al enlace:
